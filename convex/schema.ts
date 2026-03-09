@@ -17,4 +17,16 @@ export default defineSchema({
         phone: v.string(),
         email: v.string(),
     }),
+    leads: defineTable({
+        contact_name: v.string(),
+        email: v.string(),
+        phone: v.string(),
+        company_name: v.string(),
+        industry: v.string(),
+        privacy_consent: v.boolean(),
+        utm_source: v.optional(v.string()),
+        utm_medium: v.optional(v.string()),
+        utm_campaign: v.optional(v.string()),
+    })
+        .index("by_industry", ["industry"]),
 });

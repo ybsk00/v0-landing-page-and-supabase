@@ -1,8 +1,18 @@
 "use client"
 
 import { useEffect } from "react"
-import { ThreeBackground } from "@/components/three-background"
-import { HospitalChatbotLanding } from "@/components/hospital-chatbot/HospitalChatbotLanding"
+import { ParticleBG } from "@/components/landing/ParticleBG"
+import { Navbar } from "@/components/landing/Navbar"
+import { HeroSection } from "@/components/landing/HeroSection"
+import { ChatDemo } from "@/components/landing/ChatDemo"
+import { ProblemSection } from "@/components/landing/ProblemSection"
+import { UseCases } from "@/components/landing/UseCases"
+import { HowItWorks } from "@/components/landing/HowItWorks"
+import { CTASection } from "@/components/landing/CTASection"
+import { FAQSection } from "@/components/landing/FAQSection"
+import { ConsultForm } from "@/components/landing/ConsultForm"
+import { Footer } from "@/components/landing/Footer"
+import { FloatingCTA } from "@/components/landing/FloatingCTA"
 import { sendMetaConversionEvent, getMetaBrowserId, getMetaClickId } from "@/lib/meta-conversion"
 
 export default function Home() {
@@ -17,7 +27,7 @@ export default function Home() {
           fbc: getMetaClickId() ?? undefined,
         })
       } catch (error) {
-        console.error("[hospital-chatbot] Meta ViewContent error:", error)
+        console.error("[landing] Meta ViewContent error:", error)
       }
     }
 
@@ -26,8 +36,20 @@ export default function Home() {
 
   return (
     <main className="min-h-screen font-sans relative">
-      <ThreeBackground />
-      <HospitalChatbotLanding />
+      <ParticleBG />
+      <div className="relative z-10">
+        <Navbar />
+        <HeroSection />
+        <ProblemSection />
+        <ChatDemo />
+        <UseCases />
+        <CTASection />
+        <HowItWorks />
+        <FAQSection />
+        <ConsultForm />
+        <Footer />
+        <FloatingCTA />
+      </div>
     </main>
   )
 }

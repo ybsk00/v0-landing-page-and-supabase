@@ -10,9 +10,9 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "병원 전용 AI 챗봇 | 30일 무료 체험 - LumiBreeze",
+  title: "AI 고객응대 챗봇 | 무료 상담 - LumiBreeze",
   description:
-    "할루시네이션 제로, 의료법 준수, 우리 병원 DB 기반 RAG 챗봇. 24시간 환자 응대, 예약 전환율 47% 향상.",
+    "고객이 물어보면, 우리 데이터로 답합니다. 병원, 쇼핑몰, 교육, 전문서비스 맞춤 AI 챗봇. 24시간 자동 응대, 전환율 47% 향상.",
   robots: "noindex, nofollow",
 }
 
@@ -24,6 +24,12 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
         <Script src="https://www.googletagmanager.com/gtag/js?id=AW-16980195675" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`

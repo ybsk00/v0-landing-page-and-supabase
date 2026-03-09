@@ -10,6 +10,7 @@
 
 import type * as consultations from "../consultations.js";
 import type * as hospitalChatbotLeads from "../hospitalChatbotLeads.js";
+import type * as leads from "../leads.js";
 
 import type {
   ApiFromModules,
@@ -20,6 +21,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   consultations: typeof consultations;
   hospitalChatbotLeads: typeof hospitalChatbotLeads;
+  leads: typeof leads;
 }>;
 
 /**

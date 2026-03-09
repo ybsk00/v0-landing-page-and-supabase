@@ -16,7 +16,7 @@ export default function ConsultCompletePage() {
     if (typeof window !== "undefined" && window.fbq) {
       window.fbq("track", "ViewContent", {
         content_name: "Consultation Complete",
-        content_category: "Hospital Marketing",
+        content_category: "AI Chatbot",
       })
       console.log("[v0] Meta Pixel ViewContent event sent on complete page")
     }
@@ -34,7 +34,7 @@ export default function ConsultCompletePage() {
         <p className="text-lg text-gray-600 leading-relaxed">
           빠른 시일 내에 담당자가 연락드리겠습니다.
           <br />
-          LLM 기반 이중퍼널 솔루션으로 병원 마케팅을 혁신하세요.
+          AI 챗봇으로 고객 응대를 혁신하세요.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
@@ -48,10 +48,10 @@ export default function ConsultCompletePage() {
         <div className="mt-12 p-6 bg-blue-50 rounded-lg text-left">
           <h2 className="font-semibold text-lg mb-3">다음 단계</h2>
           <ul className="space-y-2 text-gray-700">
-            <li>• 담당 매니저가 1~2일 내 연락드립니다</li>
-            <li>• 병원 현황 및 요구사항을 파악합니다</li>
-            <li>• 맞춤형 솔루션 데모를 제공합니다</li>
-            <li>• 12주 도입 로드맵을 함께 계획합니다</li>
+            <li>• 담당 매니저가 24시간 내 연락드립니다</li>
+            <li>• 업종 현황 및 요구사항을 파악합니다</li>
+            <li>• 맞춤형 AI 챗봇 데모를 제공합니다</li>
+            <li>• 도입 로드맵을 함께 계획합니다</li>
           </ul>
         </div>
       </div>
