@@ -1,8 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect, Suspense } from "react"
-import { useSearchParams } from "next/navigation"
+import { useState, useEffect } from "react"
 import { useMutation } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { sendMetaConversionEvent, getMetaBrowserId, getMetaClickId } from "@/lib/meta-conversion"
@@ -17,16 +16,13 @@ declare global {
 }
 
 function ConsultFormInner() {
-  const searchParams = useSearchParams()
-  const tabParam = searchParams.get("tab")
-
   const [formData, setFormData] = useState({
     privacyConsent: "",
     companyName: "",
     contactName: "",
     phone: "",
     email: "",
-    industry: tabParam && INDUSTRIES.some((ind) => ind.id === tabParam) ? tabParam : "hospital",
+    industry: "hospital",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
@@ -46,6 +42,11 @@ function ConsultFormInner() {
         utm_medium: params.get("utm_medium") || undefined,
         utm_campaign: params.get("utm_campaign") || undefined,
       })
+      // URL tab 파라미터로 업종 초기값 설정
+      const tab = params.get("tab")
+      if (tab && INDUSTRIES.some((ind) => ind.id === tab)) {
+        setFormData((prev) => ({ ...prev, industry: tab }))
+      }
     }
   }, [])
 
@@ -312,9 +313,5 @@ function ConsultFormInner() {
 }
 
 export function ConsultForm() {
-  return (
-    <Suspense fallback={null}>
-      <ConsultFormInner />
-    </Suspense>
-  )
+  return <ConsultFormInner />
 }

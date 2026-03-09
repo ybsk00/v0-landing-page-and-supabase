@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback, Suspense } from "react"
-import { useSearchParams } from "next/navigation"
+import { useState, useEffect, useRef } from "react"
 import { MessageCircle, ArrowRight } from "lucide-react"
 import { INDUSTRIES } from "@/lib/industries"
 import { ChatBubble } from "./ChatBubble"
@@ -13,57 +12,72 @@ function scrollToForm() {
   }
 }
 
-function ChatDemoInner() {
-  const searchParams = useSearchParams()
-  const tabParam = searchParams.get("tab")
-
-  const [activeTab, setActiveTab] = useState(() => {
-    const idx = INDUSTRIES.findIndex((ind) => ind.id === tabParam)
-    return idx >= 0 ? idx : 0
-  })
+export function ChatDemo() {
+  const [activeTab, setActiveTab] = useState(0)
   const [visibleMessages, setVisibleMessages] = useState(0)
-  const [opacity, setOpacity] = useState(1)
-  const genRef = useRef(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // 마운트 시 URL tab 파라미터로 초기 탭 설정
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      const tab = params.get("tab")
+      if (tab) {
+        const idx = INDUSTRIES.findIndex((ind) => ind.id === tab)
+        if (idx >= 0) setActiveTab(idx)
+      }
+    }
+    setMounted(true)
+  }, [])
 
   const currentIndustry = INDUSTRIES[activeTab]
   const messages = currentIndustry.demoMessages
 
-  const resetDemo = useCallback(
-    (tabIndex: number) => {
-      genRef.current++
-      setOpacity(0)
-      setTimeout(() => {
-        setActiveTab(tabIndex)
-        setVisibleMessages(0)
-        setOpacity(1)
-      }, 300)
-    },
-    []
-  )
-
+  // 메시지 순차 표시 타이머
   useEffect(() => {
-    if (visibleMessages >= messages.length) {
-      // Loop: restart after 3s
-      const gen = genRef.current
-      const timer = setTimeout(() => {
-        if (gen !== genRef.current) return
-        setOpacity(0)
-        setTimeout(() => {
-          if (gen !== genRef.current) return
-          setVisibleMessages(0)
-          setOpacity(1)
-        }, 300)
-      }, 3000)
-      return () => clearTimeout(timer)
+    if (!mounted) return
+
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
     }
 
-    const gen = genRef.current
-    const timer = setTimeout(() => {
-      if (gen !== genRef.current) return
-      setVisibleMessages((prev) => prev + 1)
-    }, 1200)
-    return () => clearTimeout(timer)
-  }, [visibleMessages, messages.length])
+    if (visibleMessages >= messages.length) {
+      // 모든 메시지 표시 완료 → 3초 후 리셋
+      timerRef.current = setTimeout(() => {
+        setIsTransitioning(true)
+        setTimeout(() => {
+          setVisibleMessages(0)
+          setIsTransitioning(false)
+        }, 300)
+      }, 3000)
+    } else {
+      // 다음 메시지 표시
+      timerRef.current = setTimeout(() => {
+        setVisibleMessages((prev) => prev + 1)
+      }, 1200)
+    }
+
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current)
+      }
+    }
+  }, [visibleMessages, messages.length, mounted])
+
+  // 탭 전환
+  const handleTabChange = (tabIndex: number) => {
+    if (tabIndex === activeTab) return
+    if (timerRef.current) clearTimeout(timerRef.current)
+
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setActiveTab(tabIndex)
+      setVisibleMessages(0)
+      setIsTransitioning(false)
+    }, 300)
+  }
 
   return (
     <section className="py-16 md:py-24 px-4">
@@ -83,9 +97,7 @@ function ChatDemoInner() {
           {INDUSTRIES.map((ind, i) => (
             <button
               key={ind.id}
-              onClick={() => {
-                if (i !== activeTab) resetDemo(i)
-              }}
+              onClick={() => handleTabChange(i)}
               className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
                 i === activeTab
                   ? "bg-teal-500/20 text-teal-400 border border-teal-500/30"
@@ -113,12 +125,15 @@ function ChatDemoInner() {
           {/* 메시지 영역 */}
           <div
             className="space-y-4 min-h-[300px] transition-opacity duration-300"
-            style={{ opacity }}
+            style={{ opacity: isTransitioning ? 0 : 1 }}
           >
             {messages.slice(0, visibleMessages).map((msg, i) => (
               <ChatBubble key={`${activeTab}-${i}`} role={msg.role} text={msg.text} />
             ))}
-            {visibleMessages < messages.length && (
+            {visibleMessages < messages.length && visibleMessages > 0 && (
+              <ChatBubble role="bot" text="" isTyping />
+            )}
+            {visibleMessages === 0 && !isTransitioning && (
               <ChatBubble role="bot" text="" isTyping />
             )}
           </div>
@@ -136,13 +151,5 @@ function ChatDemoInner() {
         </div>
       </div>
     </section>
-  )
-}
-
-export function ChatDemo() {
-  return (
-    <Suspense fallback={null}>
-      <ChatDemoInner />
-    </Suspense>
   )
 }
