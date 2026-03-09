@@ -23,10 +23,10 @@ export function FloatingCTA() {
   if (!visible) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-3 md:hidden bg-[#0a0f1a]/90 backdrop-blur-xl border-t border-white/5">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:hidden bg-[#0a0f1a]/90 backdrop-blur-xl border-t border-white/5">
       <button
         onClick={scrollToForm}
-        className="w-full py-3.5 rounded-xl font-bold text-base text-white bg-gradient-to-r from-teal-500 to-cyan-400 shadow-lg shadow-teal-500/25"
+        className="w-full py-4 rounded-xl font-bold text-base text-white bg-gradient-to-r from-teal-500 to-cyan-400 shadow-lg shadow-teal-500/25"
       >
         무료 상담 받기
       </button>

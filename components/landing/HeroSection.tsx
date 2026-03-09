@@ -20,7 +20,7 @@ export function HeroSection() {
 
         {/* 헤드라인 */}
         <h1
-          className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6"
           style={{ wordBreak: "keep-all" }}
         >
           고객이 물어보면{" "}
@@ -45,7 +45,7 @@ export function HeroSection() {
         {/* CTA 버튼 */}
         <button
           onClick={scrollToForm}
-          className="inline-flex items-center gap-2 px-8 py-4 text-lg font-bold rounded-xl bg-gradient-to-r from-teal-500 to-cyan-400 text-white hover:from-teal-400 hover:to-cyan-300 transition-all shadow-xl shadow-teal-500/25 hover:shadow-teal-500/40 hover:-translate-y-0.5"
+          className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold rounded-xl bg-gradient-to-r from-teal-500 to-cyan-400 text-white hover:from-teal-400 hover:to-cyan-300 transition-all shadow-xl shadow-teal-500/25 hover:shadow-teal-500/40 hover:-translate-y-0.5"
         >
           무료 상담 받기
           <ArrowRight className="w-5 h-5" />

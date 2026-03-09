@@ -93,12 +93,12 @@ export function ChatDemo() {
         </p>
 
         {/* 업종 탭 */}
-        <div className="flex gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex gap-1.5 md:gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide">
           {INDUSTRIES.map((ind, i) => (
             <button
               key={ind.id}
               onClick={() => handleTabChange(i)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+              className={`px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap transition-all ${
                 i === activeTab
                   ? "bg-teal-500/20 text-teal-400 border border-teal-500/30"
                   : "bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 hover:text-white"
@@ -143,7 +143,7 @@ export function ChatDemo() {
         <div className="text-center mt-8">
           <button
             onClick={scrollToForm}
-            className="inline-flex items-center gap-2 px-8 py-4 text-lg font-bold rounded-xl bg-gradient-to-r from-teal-500 to-cyan-400 text-white hover:from-teal-400 hover:to-cyan-300 transition-all shadow-xl shadow-teal-500/25 hover:shadow-teal-500/40 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 text-base md:text-lg font-bold rounded-xl bg-gradient-to-r from-teal-500 to-cyan-400 text-white hover:from-teal-400 hover:to-cyan-300 transition-all shadow-xl shadow-teal-500/25 hover:shadow-teal-500/40 hover:-translate-y-0.5"
           >
             우리 회사에도 적용하기
             <ArrowRight className="w-5 h-5" />

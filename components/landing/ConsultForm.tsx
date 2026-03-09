@@ -152,7 +152,7 @@ function ConsultFormInner() {
               <label className="block text-base font-semibold text-white">
                 개인정보 제공에 동의합니까? <span className="text-red-400">*</span>
               </label>
-              <div className="flex gap-6">
+              <div className="flex gap-3 md:gap-6">
                 <label className="flex items-center gap-2 cursor-pointer group">
                   <input
                     type="radio"

@@ -2,7 +2,7 @@
 
 export function Footer() {
   return (
-    <footer className="py-8 px-4 border-t border-white/5">
+    <footer className="py-8 pb-20 md:pb-8 px-4 border-t border-white/5">
       <div className="max-w-4xl mx-auto text-center">
         <p className="text-sm text-gray-500 leading-relaxed">
           주식회사 루미브리즈 | 대표 유범석 | lumibeeze00@gmail.com
